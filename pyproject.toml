@@ -6,14 +6,14 @@ build-backend = "setuptools.build_meta"
 package = true
 
 [project]
-name = "doclify"
+name = "codedocai"
 version = "0.2.2"
 description = "AI-powered documentation generator for Python projects"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "GNU AFFERO GENERAL PUBLIC LICENSE"}
 authors = [
-  {name = "Hema Kalyan", email = "mhemakalyan@gmail.com"}
+  {name = "Khushi Saxena"}
 ]
 
 dependencies = [
@@ -32,8 +32,8 @@ dev = [
 ]
 
 [project.urls]
-Repository = "https://github.com/KalyanM45/Doclify"
-Issues = "https://github.com/KalyanM45/Doclify/issues"
+Repository = "https://github.com/khushisaxena1126-star/CodeDocAI"
+Issues = "https://github.com/khushisaxena1126-star/CodeDocAI/issues"
 
 [project.scripts]
 doclify = "doclify.pipelines.supervisor:cli"
