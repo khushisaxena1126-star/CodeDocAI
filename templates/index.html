@@ -8,115 +8,329 @@
 
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f5f7fb;
-            color: #172033;
+            font-family: Inter, Arial, sans-serif;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12), transparent 30%),
+                radial-gradient(circle at 90% 25%, rgba(139, 92, 246, 0.12), transparent 30%),
+                linear-gradient(135deg, #f8faff 0%, #f5f3ff 100%);
+            color: #172554;
             min-height: 100vh;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1000px;
-            margin: auto;
-            padding: 55px 0;
+        /* NAVBAR */
+
+        .navbar {
+            height: 76px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.15);
         }
 
-        .header {
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 25px;
+            font-weight: 800;
+            color: #172554;
+        }
+
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 19px;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.25);
+        }
+
+        .logo span {
+            color: #6d28d9;
+        }
+
+        .powered {
+            padding: 9px 16px;
+            border-radius: 30px;
+            background: #f0edff;
+            color: #5b4de8;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* HERO */
+
+        .hero {
             text-align: center;
-            margin-bottom: 35px;
+            padding: 55px 20px 25px;
         }
 
-        .header h1 {
-            font-size: 46px;
+        .badge {
+            display: inline-block;
+            padding: 10px 18px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.85);
+            border: 1px solid #e0e7ff;
+            color: #6857ed;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 5px 20px rgba(79,70,229,0.08);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 7vw, 78px);
+            line-height: 1;
+            font-weight: 850;
+            letter-spacing: -3px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(90deg, #4f46e5, #7c3aed, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: #334155;
             margin-bottom: 12px;
         }
 
-        .header p {
-            font-size: 18px;
+        .hero-description {
+            max-width: 650px;
+            margin: auto;
             color: #64748b;
+            font-size: 15px;
+            line-height: 1.7;
         }
 
-        .card {
-            background: white;
-            border-radius: 18px;
-            padding: 35px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.08);
+        /* MAIN CARD */
+
+        .main-container {
+            width: 90%;
+            max-width: 1020px;
+            margin: 30px auto;
+        }
+
+        .upload-card {
+            background: rgba(255,255,255,0.9);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow:
+                0 25px 70px rgba(79,70,229,0.12),
+                0 5px 20px rgba(15,23,42,0.05);
+            border: 1px solid rgba(255,255,255,0.9);
         }
 
         .upload-area {
-            border: 2px dashed #cbd5e1;
-            border-radius: 14px;
+            border: 2px dashed #b8c4ff;
+            border-radius: 18px;
             padding: 45px 20px;
             text-align: center;
+            background: linear-gradient(
+                180deg,
+                rgba(248,250,255,0.9),
+                rgba(245,243,255,0.8)
+            );
+            transition: 0.3s ease;
+        }
+
+        .upload-area:hover {
+            border-color: #7167ee;
+            background: #f7f6ff;
+            transform: translateY(-2px);
+        }
+
+        .upload-icon {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 18px;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            color: #6255e9;
+            background: linear-gradient(
+                135deg,
+                #eef2ff,
+                #ede9fe
+            );
         }
 
         .upload-area h2 {
-            margin-bottom: 10px;
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #172554;
         }
 
         .upload-area p {
             color: #64748b;
             margin-bottom: 22px;
+            font-size: 14px;
         }
 
         input[type="file"] {
-            display: block;
-            margin: auto;
-            max-width: 100%;
+            display: none;
         }
+
+        .choose-file {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border-radius: 10px;
+            color: white;
+            background: linear-gradient(135deg, #4f46e5, #7c3aed);
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(79,70,229,0.25);
+            transition: 0.25s;
+        }
+
+        .choose-file:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(79,70,229,0.35);
+        }
+
+        .file-name {
+            margin-left: 12px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .file-info {
+            margin-top: 18px;
+            color: #94a3b8;
+            font-size: 13px;
+        }
+
+        /* GENERATE BUTTON */
 
         .generate-btn {
             width: 100%;
-            margin-top: 25px;
-            padding: 15px;
+            margin-top: 22px;
+            padding: 17px;
             border: none;
-            border-radius: 10px;
-            background: #111827;
+            border-radius: 13px;
             color: white;
             font-size: 16px;
-            font-weight: bold;
+            font-weight: 800;
             cursor: pointer;
+            background: linear-gradient(
+                90deg,
+                #2563eb,
+                #6366f1,
+                #7c3aed
+            );
+            box-shadow: 0 12px 28px rgba(79,70,229,0.25);
+            transition: 0.25s ease;
         }
 
         .generate-btn:hover {
-            background: #374151;
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px rgba(79,70,229,0.35);
         }
 
+        /* FEATURES */
+
+        .features {
+            max-width: 1050px;
+            width: 90%;
+            margin: 45px auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .feature {
+            padding: 10px 25px;
+            border-right: 1px solid #e2e8f0;
+        }
+
+        .feature:last-child {
+            border-right: none;
+        }
+
+        .feature-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            font-size: 19px;
+            background: #eef2ff;
+        }
+
+        .feature h3 {
+            font-size: 15px;
+            margin-bottom: 6px;
+            color: #1e293b;
+        }
+
+        .feature p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #64748b;
+        }
+
+        /* ERROR */
+
         .error {
-            background: #fee2e2;
-            color: #991b1b;
+            background: #fff1f2;
+            color: #be123c;
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             margin-bottom: 20px;
+            border: 1px solid #fecdd3;
+        }
+
+        /* RESULT */
+
+        .result-card {
+            margin-top: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 15px 45px rgba(15,23,42,0.08);
         }
 
         .result-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 15px;
             margin-bottom: 18px;
         }
 
         .result-header h2 {
-            font-size: 24px;
+            font-size: 23px;
         }
 
         .download-btn {
             border: none;
+            padding: 11px 17px;
+            border-radius: 9px;
             background: #111827;
             color: white;
-            padding: 10px 18px;
-            border-radius: 8px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
         }
 
         .download-btn:hover {
@@ -126,7 +340,7 @@
         .readme-box {
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 25px;
             overflow-x: auto;
         }
@@ -137,27 +351,67 @@
             line-height: 1.7;
             font-family: Consolas, monospace;
             font-size: 14px;
+            color: #334155;
         }
 
-        .footer {
+        /* FOOTER */
+
+        footer {
             text-align: center;
-            color: #64748b;
-            font-size: 14px;
-            margin-top: 30px;
+            padding: 30px;
+            color: #94a3b8;
+            font-size: 13px;
         }
 
-        @media (max-width: 600px) {
-            .header h1 {
-                font-size: 36px;
+        /* MOBILE */
+
+        @media (max-width: 800px) {
+
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 25px;
             }
 
-            .card {
-                padding: 22px;
+            .feature {
+                border-right: none;
+            }
+
+            .navbar {
+                padding: 0 5%;
+            }
+
+            .powered {
+                display: none;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            .hero {
+                padding-top: 35px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+                letter-spacing: -2px;
+            }
+
+            .upload-card {
+                padding: 15px;
+            }
+
+            .upload-area {
+                padding: 35px 15px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
             }
 
             .result-header {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 15px;
             }
         }
     </style>
@@ -165,15 +419,51 @@
 
 <body>
 
-<div class="container">
+<!-- NAVBAR -->
 
-    <div class="header">
-        <h1>CodeDocAI</h1>
-        <p>AI-powered documentation generator for Python projects.</p>
+<nav class="navbar">
+
+    <div class="logo">
+        <div class="logo-icon">&lt;/&gt;</div>
+        CodeDoc<span>AI</span>
     </div>
 
+    <div class="powered">
+        ⚡ Powered by Groq
+    </div>
 
-    <div class="card">
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="badge">
+        ✨ Turn Your Code into Documentation
+    </div>
+
+    <h1>
+        CodeDoc<span class="gradient">AI</span>
+    </h1>
+
+    <p class="hero-subtitle">
+        AI-powered documentation generator for Python projects.
+    </p>
+
+    <p class="hero-description">
+        Upload your Python project as a ZIP file and generate a
+        clean, structured README.md automatically with the power of AI.
+    </p>
+
+</section>
+
+
+<!-- MAIN -->
+
+<div class="main-container">
+
+    <div class="upload-card">
 
         {% if error %}
         <div class="error">
@@ -185,44 +475,147 @@
 
             <div class="upload-area">
 
-                <h2>Upload Your Python Project</h2>
+                <div class="upload-icon">
+                    ☁
+                </div>
+
+                <h2>
+                    Upload Your Python Project
+                </h2>
 
                 <p>
-                    Upload your project as a ZIP file and generate
-                    documentation automatically.
+                    Drag and drop your ZIP file here, or click to browse
                 </p>
+
+                <label for="project" class="choose-file">
+                    📁 Choose File
+                </label>
+
+                <span class="file-name" id="file-name">
+                    No file chosen
+                </span>
 
                 <input
                     type="file"
+                    id="project"
                     name="project"
                     accept=".zip"
                     required
                 >
 
+                <div class="file-info">
+                    ℹ Supports .zip files only
+                </div>
+
             </div>
 
-            <button class="generate-btn" type="submit">
-                Generate README
+            <button
+                type="submit"
+                class="generate-btn"
+            >
+                ✨ Generate README &nbsp; →
             </button>
 
         </form>
 
     </div>
 
+</div>
 
-    {% if readme %}
 
-    <div class="card">
+<!-- FEATURES -->
+
+<section class="features">
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ⚡
+        </div>
+
+        <h3>
+            Fast & Easy
+        </h3>
+
+        <p>
+            Generate project documentation in seconds.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            ✨
+        </div>
+
+        <h3>
+            AI Powered
+        </h3>
+
+        <p>
+            Uses AI to understand your project's code.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            🛡
+        </div>
+
+        <h3>
+            Clean & Professional
+        </h3>
+
+        <p>
+            Generate structured and readable Markdown files.
+        </p>
+
+    </div>
+
+
+    <div class="feature">
+
+        <div class="feature-icon">
+            &lt;/&gt;
+        </div>
+
+        <h3>
+            Built for Developers
+        </h3>
+
+        <p>
+            Simple interface focused on your workflow.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- RESULT -->
+
+{% if readme %}
+
+<div class="main-container">
+
+    <div class="result-card">
 
         <div class="result-header">
 
-            <h2>Generated Documentation</h2>
+            <h2>
+                📄 Generated Documentation
+            </h2>
 
             <button
                 class="download-btn"
                 onclick="downloadReadme()"
             >
-                Download README.md
+                ↓ Download README.md
             </button>
 
         </div>
@@ -235,41 +628,67 @@
 
     </div>
 
-    {% endif %}
-
-
-    <div class="footer">
-        CodeDocAI - AI-powered Python documentation
-    </div>
-
 </div>
+
+{% endif %}
+
+
+<!-- FOOTER -->
+
+<footer>
+    CodeDocAI · AI-powered Python documentation
+</footer>
 
 
 <script>
-function downloadReadme() {
 
-    const content = document.getElementById("readme-content").innerText;
+    const fileInput = document.getElementById("project");
+    const fileName = document.getElementById("file-name");
 
-    const blob = new Blob(
-        [content],
-        { type: "text/markdown;charset=utf-8" }
-    );
+    if (fileInput) {
 
-    const url = URL.createObjectURL(blob);
+        fileInput.addEventListener("change", function () {
 
-    const link = document.createElement("a");
+            if (this.files.length > 0) {
+                fileName.textContent = this.files[0].name;
+            } else {
+                fileName.textContent = "No file chosen";
+            }
 
-    link.href = url;
-    link.download = "README.md";
+        });
 
-    document.body.appendChild(link);
+    }
 
-    link.click();
 
-    document.body.removeChild(link);
+    function downloadReadme() {
 
-    URL.revokeObjectURL(url);
-}
+        const content =
+            document.getElementById("readme-content").innerText;
+
+        const blob = new Blob(
+            [content],
+            {
+                type: "text/markdown;charset=utf-8"
+            }
+        );
+
+        const url = URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+
+        link.href = url;
+        link.download = "README.md";
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        document.body.removeChild(link);
+
+        URL.revokeObjectURL(url);
+
+    }
+
 </script>
 
 </body>
