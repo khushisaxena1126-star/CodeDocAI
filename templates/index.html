@@ -439,6 +439,16 @@
                 gap: 15px;
             }
         }
+        .upload-area.dragging {
+    border-color: #6366f1;
+    background: linear-gradient(
+        135deg,
+        #eef2ff,
+        #f5f3ff
+    );
+    transform: scale(1.01);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.15);
+}
     </style>
 </head>
 
@@ -498,7 +508,7 @@
 
         <form method="POST" enctype="multipart/form-data">
 
-            <div class="upload-area">
+            <div class="upload-area" id="upload-area">
 
                 <div class="upload-icon">
                     ☁
@@ -631,6 +641,19 @@
 
     <div class="result-card">
 
+        <div class="success-message">
+
+            <div class="success-icon">✓</div>
+
+            <div>
+                Documentation generated successfully
+                <div style="font-weight: 400; margin-top: 3px;">
+                    Your README.md is ready to download.
+                </div>
+            </div>
+
+        </div>
+
         <div class="result-header">
 
             <h2>
@@ -638,12 +661,12 @@
             </h2>
 
             <button
-    type="button"
-    class="download-btn"
-    id="download-btn"
->
-    ↓ Download README.md
-</button>
+                type="button"
+                class="download-btn"
+                id="download-btn"
+            >
+                ↓ Download README.md
+            </button>
 
         </div>
 
@@ -658,6 +681,7 @@
 </div>
 
 {% endif %}
+
 
 
 <!-- FOOTER -->
@@ -778,6 +802,60 @@
         });
 
     }
+/* =========================
+   DRAG AND DROP
+========================= */
+
+const uploadArea = document.getElementById("upload-area");
+
+if (uploadArea && fileInput) {
+
+    uploadArea.addEventListener("dragover", function(event) {
+
+        event.preventDefault();
+
+        uploadArea.classList.add("dragging");
+
+    });
+
+    uploadArea.addEventListener("dragleave", function() {
+
+        uploadArea.classList.remove("dragging");
+
+    });
+
+    uploadArea.addEventListener("drop", function(event) {
+
+        event.preventDefault();
+
+        uploadArea.classList.remove("dragging");
+
+        const files = event.dataTransfer.files;
+
+        if (!files.length) {
+            return;
+        }
+
+        const file = files[0];
+
+        if (!file.name.toLowerCase().endsWith(".zip")) {
+
+            alert("Please upload a ZIP file.");
+
+            return;
+        }
+
+        const dataTransfer = new DataTransfer();
+
+        dataTransfer.items.add(file);
+
+        fileInput.files = dataTransfer.files;
+
+        fileName.textContent = file.name;
+
+    });
+
+}
 
 </script>
 

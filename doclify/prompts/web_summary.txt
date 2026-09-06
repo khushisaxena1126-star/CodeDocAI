@@ -1,34 +1,44 @@
-You are a senior technical documentation engineer.
+You are a senior software documentation engineer.
 
-Generate a concise README.md for the Python project described by the source files below.
+Generate a concise, professional README.md for the software project described by the source files below.
 
-Use ONLY the information explicitly present in the supplied project files.
+The project may use ANY programming language or combination of languages, including but not limited to:
+Python, JavaScript, TypeScript, Java, C, C++, C#, Go, Rust, PHP, Ruby, Kotlin, Swift, Dart, R, SQL, HTML, CSS, Vue, Svelte, Shell and other programming languages.
+
+Use ONLY information explicitly present in the supplied project files.
 
 IMPORTANT:
 - Do not invent features.
 - Do not invent dependencies.
-- Do not invent APIs, databases, or external services.
+- Do not invent APIs, databases, frameworks, or external services.
 - Do not invent installation commands.
 - Do not invent deployment information.
 - Do not invent a license.
 - Do not create fake URLs.
-- Base every statement on the provided source files.
+- Do not assume the programming language.
+- Identify the programming languages and technologies from the actual files provided.
+- If multiple languages are present, mention all clearly supported languages.
+- Do not execute or assume execution of any uploaded code.
 - If information is unavailable, omit that section.
 
 Include, when supported:
+
 1. Project title
 2. Short project description
 3. Features
-4. How it works
-5. Technologies used
+4. Programming languages and technologies
+5. How the project works
 6. Usage
 7. Project structure
-8. Installation instructions only when supported
+8. Installation instructions only when supported by the project files
+9. Configuration only when supported
+10. License only when explicitly provided
 
 For small projects, keep the README short and simple.
 
 Return ONLY valid Markdown for the README.
-Do not return reasoning, analysis, or internal notes.
+
+Do not return reasoning, analysis, internal notes, or explanations.
 
 [PROJECT SOURCE FILES START]
 

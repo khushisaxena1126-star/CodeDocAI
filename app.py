@@ -9,10 +9,66 @@ from doclify.utils.llm import generate_doc
 
 app = Flask(__name__)
 
-ALLOWED_EXTENSIONS = {".py", ".md", ".txt", ".ipynb"}
+ALLOWED_EXTENSIONS = { # Python
+    ".py", ".pyw", ".ipynb",
+
+    # JavaScript / TypeScript
+    ".js", ".jsx", ".ts", ".tsx",
+
+    # Java / JVM
+    ".java", ".kt", ".kts", ".scala",
+
+    # C / C++
+    ".c", ".h", ".cpp", ".hpp", ".cc", ".cxx",
+
+    # C#
+    ".cs",
+
+    # Go
+    ".go",
+
+    # Rust
+    ".rs",
+
+    # PHP
+    ".php",
+
+    # Ruby
+    ".rb",
+
+    # Swift
+    ".swift",
+
+    # Dart
+    ".dart",
+
+    # R
+    ".r", ".R",
+
+    # Web
+    ".html", ".htm", ".css", ".scss", ".sass",
+    ".less", ".vue", ".svelte",
+
+    # SQL
+    ".sql",
+
+    # Shell
+    ".sh", ".bash", ".zsh", ".fish", ".ps1", ".bat", ".cmd",
+
+    # Data / configuration
+    ".json", ".yaml", ".yml", ".xml", ".toml", ".ini", ".cfg",
+
+    # Documentation
+    ".md", ".txt",
+
+    # Other common project files
+    ".gradle", ".properties"}
 
 MAX_ZIP_SIZE = 10 * 1024 * 1024  # 10 MB
 MAX_FILES = 100
+MAX_TOTAL_CONTENT = 250_000
+
+MAX_SINGLE_FILE = 200_000
 
 
 def extract_project(zip_path, output_dir):
@@ -54,11 +110,15 @@ def collect_project_files(project_dir):
 
 
 def read_project_files(files, project_dir):
-    """Read project source files for AI analysis."""
+    """Read supported project files for AI analysis."""
     contents = []
+    total_chars = 0
 
     for path in files:
         try:
+            if path.stat().st_size > MAX_SINGLE_FILE:
+                continue
+
             content = path.read_text(
                 encoding="utf-8",
                 errors="ignore"
@@ -67,14 +127,29 @@ def read_project_files(files, project_dir):
             if not content.strip():
                 continue
 
+            remaining = MAX_TOTAL_CONTENT - total_chars
+
+            if remaining <= 0:
+                break
+
+            if len(content) > remaining:
+                content = content[:remaining]
+
             relative_path = path.relative_to(project_dir)
+
+            extension = path.suffix.lower().lstrip(".")
+
+            if not extension:
+                extension = "text"
 
             contents.append(
                 f"FILE: {relative_path}\n"
-                f"```{path.suffix.lstrip('.')}\n"
+                f"```{extension}\n"
                 f"{content}\n"
                 f"```\n"
             )
+
+            total_chars += len(content)
 
         except Exception:
             continue
