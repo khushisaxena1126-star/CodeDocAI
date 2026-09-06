@@ -223,29 +223,54 @@
         /* GENERATE BUTTON */
 
         .generate-btn {
-            width: 100%;
-            margin-top: 22px;
-            padding: 17px;
-            border: none;
-            border-radius: 13px;
-            color: white;
-            font-size: 16px;
-            font-weight: 800;
-            cursor: pointer;
-            background: linear-gradient(
-                90deg,
-                #2563eb,
-                #6366f1,
-                #7c3aed
-            );
-            box-shadow: 0 12px 28px rgba(79,70,229,0.25);
-            transition: 0.25s ease;
-        }
+    width: 100%;
+    margin-top: 22px;
+    padding: 17px;
+    border: none;
+    border-radius: 13px;
+    color: white;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #6366f1,
+        #7c3aed
+    );
+    box-shadow: 0 12px 28px rgba(79,70,229,0.25);
+    transition: 0.25s ease;
+}
 
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 32px rgba(79,70,229,0.35);
-        }
+.generate-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px rgba(79,70,229,0.35);
+}
+
+.generate-btn.loading {
+    cursor: not-allowed;
+    opacity: 0.9;
+    transform: none;
+}
+
+.spinner {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    margin-right: 10px;
+    vertical-align: -3px;
+    border: 3px solid rgba(255,255,255,0.35);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+     
 
         /* FEATURES */
 
@@ -510,11 +535,12 @@
             </div>
 
             <button
-                type="submit"
-                class="generate-btn"
-            >
-                ✨ Generate README &nbsp; →
-            </button>
+    type="submit"
+    class="generate-btn"
+    id="generate-btn"
+>
+    <span id="button-content">✨ Generate README →</span>
+</button>
 
         </form>
 
@@ -612,11 +638,12 @@
             </h2>
 
             <button
-                class="download-btn"
-                onclick="downloadReadme()"
-            >
-                ↓ Download README.md
-            </button>
+    type="button"
+    class="download-btn"
+    id="download-btn"
+>
+    ↓ Download README.md
+</button>
 
         </div>
 
@@ -639,8 +666,11 @@
     CodeDocAI · AI-powered Python documentation
 </footer>
 
+    <script>
 
-<script>
+    /* =========================
+       FILE NAME
+    ========================= */
 
     const fileInput = document.getElementById("project");
     const fileName = document.getElementById("file-name");
@@ -649,7 +679,7 @@
 
         fileInput.addEventListener("change", function () {
 
-            if (this.files.length > 0) {
+            if (this.files && this.files.length > 0) {
                 fileName.textContent = this.files[0].name;
             } else {
                 fileName.textContent = "No file chosen";
@@ -658,6 +688,98 @@
         });
 
     }
+
+
+    /* =========================
+       GENERATE README LOADING
+    ========================= */
+
+    const form = document.querySelector("form");
+    const generateButton = document.getElementById("generate-btn");
+    const buttonContent = document.getElementById("button-content");
+
+    if (form && generateButton && buttonContent) {
+
+        form.addEventListener("submit", function () {
+
+            if (!fileInput || !fileInput.files.length) {
+                return;
+            }
+
+            generateButton.disabled = true;
+            generateButton.classList.add("loading");
+
+            buttonContent.innerHTML =
+                '<span class="spinner"></span> Analyzing your project...';
+
+            setTimeout(function () {
+
+                buttonContent.innerHTML =
+                    '<span class="spinner"></span> Generating documentation...';
+
+            }, 2000);
+
+            setTimeout(function () {
+
+                buttonContent.innerHTML =
+                    '<span class="spinner"></span> Preparing README...';
+
+            }, 5000);
+
+        });
+
+    }
+
+
+    /* =========================
+       DOWNLOAD README
+    ========================= */
+
+    const downloadButton = document.getElementById("download-btn");
+
+    if (downloadButton) {
+
+        downloadButton.addEventListener("click", function () {
+
+            const readmeElement =
+                document.getElementById("readme-content");
+
+            if (!readmeElement) {
+                alert("README content is not available.");
+                return;
+            }
+
+            const content = readmeElement.textContent;
+
+            const blob = new Blob(
+                [content],
+                {
+                    type: "text/markdown;charset=utf-8"
+                }
+            );
+
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement("a");
+
+            link.href = url;
+            link.download = "README.md";
+
+            document.body.appendChild(link);
+
+            link.click();
+
+            document.body.removeChild(link);
+
+            setTimeout(function () {
+                URL.revokeObjectURL(url);
+            }, 100);
+
+        });
+
+    }
+
+</script>
 
 
     function downloadReadme() {
