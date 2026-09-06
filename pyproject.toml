@@ -23,6 +23,8 @@ dependencies = [
     "rich",
     "python-dotenv",
     "groq>=1.1.1"
+	"flask"
+    "gunicorn"
 ]
 
 [project.optional-dependencies]

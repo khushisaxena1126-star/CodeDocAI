@@ -1,0 +1,37 @@
+You are a senior technical documentation engineer.
+
+Generate a concise README.md for the Python project described by the source files below.
+
+Use ONLY the information explicitly present in the supplied project files.
+
+IMPORTANT:
+- Do not invent features.
+- Do not invent dependencies.
+- Do not invent APIs, databases, or external services.
+- Do not invent installation commands.
+- Do not invent deployment information.
+- Do not invent a license.
+- Do not create fake URLs.
+- Base every statement on the provided source files.
+- If information is unavailable, omit that section.
+
+Include, when supported:
+1. Project title
+2. Short project description
+3. Features
+4. How it works
+5. Technologies used
+6. Usage
+7. Project structure
+8. Installation instructions only when supported
+
+For small projects, keep the README short and simple.
+
+Return ONLY valid Markdown for the README.
+Do not return reasoning, analysis, or internal notes.
+
+[PROJECT SOURCE FILES START]
+
+{code_content}
+
+[PROJECT SOURCE FILES END]
