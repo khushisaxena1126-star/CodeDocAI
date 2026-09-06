@@ -1,5 +1,9 @@
 # CodeDocAI
 
+AI-powered documentation generator for multi-language software projects.
+
+[🚀 Live Demo](https://codedocai-cknl.onrender.com
+
 CodeDocAI is a command-line tool developed by Khushi Saxena that analyzes Python codebases to generate structured, professional project documentation using a large language model. It accepts a Python project as input and produces a generated or updated `README.md` file as output.
 
 ## Features
@@ -29,52 +33,6 @@ CodeDocAI is a command-line tool developed by Khushi Saxena that analyzes Python
 - **YAML**: Configuration file management (`doclify.yaml`).
 - **Pathspec**: Parsing gitignore-style patterns.
 - **LiteLLM**: Configuration for language learning models.
-
-## Usage
-
-### Installation
-
-*Installation instructions are not explicitly provided in the file summaries.*
-
-### Commands
-
-The tool provides a command-line interface via `main.py` (which imports `doclify.pipelines.supervisor`).
-
-- **Initialize Project**:
-  Initializes or reinitializes a Doclify project, scanning the repository and generating `doclify.yaml`.
-  ```bash
-  python main.py init
-  ```
-
-- **Generate Documentation**:
-  Processes specified source files using the configured LLM to generate or update `README.md`.
-  ```bash
-  python main.py run
-  ```
-
-- **Update Documentation**:
-  Updates documentation for specific files or directories based on `doclify.yaml` configuration.
-  ```bash
-  python main.py update [file_path_or_directory]
-  ```
-
-- **List Models**:
-  Displays available AI models from the Groq API, including model IDs, developers, context windows, and maximum output tokens.
-  ```bash
-  python main.py list-models
-  ```
-
-- **Set Default Model**:
-  Updates the `doclify.yaml` configuration to set a default LLM model.
-  ```bash
-  python main.py set-default [model_name]
-  ```
-
-### Configuration
-
-- **`doclify.yaml`**: Manages LLM settings, including model and provider configurations.
-- **Environment Variables**:
-  - `GROQ_API_KEY`: Required for authenticating with the Groq API.
 
 ## Project Structure
 
